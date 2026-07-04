@@ -27,7 +27,7 @@
             <aside class="w-full lg:w-72 shrink-0">
                 <div class="bg-white rounded-2xl shadow-md p-6 sticky top-24">
                     <h2 class="font-black text-navy text-xl mb-5 flex items-center gap-2">
-                        🔍 تصفية النتائج
+                        تصفية النتائج
                     </h2>
 
                     <form action="{{ route('properties.index') }}" method="GET" id="search-form">

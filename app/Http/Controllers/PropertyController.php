@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Property;
+use App\Models\University;
 use Illuminate\Http\Request;
 
 class PropertyController extends Controller
@@ -10,14 +11,8 @@ class PropertyController extends Controller
     public function index(Request $request)
     {
         $filters = $request->only([
-            'keyword',
-            'type',
-            'city',
-            'district',
-            'university',
-            'min_price',
-            'max_price',
-            'bathrooms',
+            'keyword', 'type', 'city', 'district',
+            'university', 'min_price', 'max_price', 'bathrooms',
         ]);
 
         $properties = Property::active()
@@ -29,17 +24,12 @@ class PropertyController extends Controller
 
         $types        = Property::active()->distinct()->pluck('type');
         $cities       = Property::active()->distinct()->pluck('city')->filter();
-        $universities = Property::active()->distinct()->pluck('nearest_university')->filter();
+        $universities = University::active()->pluck('name');
 
         return view('properties.index', compact(
-            'properties',
-            'filters',
-            'types',
-            'cities',
-            'universities'
+            'properties', 'filters', 'types', 'cities', 'universities'
         ));
     }
-
     public function show(Property $property)
     {
         abort_if(!$property->is_active, 404);

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\PropertyResource\Pages;
 use App\Models\Property;
+use App\Models\University;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -91,9 +92,12 @@ class PropertyResource extends Resource
                             ->numeric()
                             ->prefix('ج.م'),
 
-                        Forms\Components\TextInput::make('nearest_university')
+                        Forms\Components\Select::make('nearest_university')
                             ->label('أقرب جامعة')
-                            ->maxLength(255),
+                            ->options(University::active()->pluck('name', 'name'))
+                            ->searchable()
+                            ->placeholder('اختر الجامعة')
+                            ->columnSpanFull(),
                     ]),
 
                     Forms\Components\Textarea::make('description')
