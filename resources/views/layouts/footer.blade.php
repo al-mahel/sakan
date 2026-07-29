@@ -34,7 +34,7 @@
         </div>
 
         <div class="border-t border-navy-700 mt-8 pt-6 text-center text-navy-300 text-sm">
-            © {{ date('Y') }} سكن — جميع الحقوق محفوظة
+            Designed & Developed by Roqix Tech @ {{ date('Y') }}
         </div>
     </div>
 </footer>

@@ -56,6 +56,24 @@ class UniversityResource extends Resource
                         ->numeric()
                         ->default(0),
 
+                Grid::make(2)->schema([
+                    Forms\Components\Select::make('type')
+                        ->label('نوع الجامعة')
+                        ->options([
+                            'حكومية' => 'حكومية',
+                            'أهلية'  => 'أهلية',
+                            'خاصة'   => 'خاصة',
+                        ])
+                        ->default('حكومية')
+                        ->required(),
+
+                    Forms\Components\TextInput::make('website')
+                        ->label('موقع الجامعة')
+                        ->url()
+                        ->placeholder('https://university.edu.eg')
+                        ->maxLength(255),
+                ]),
+
                     Forms\Components\Toggle::make('is_active')
                         ->label('نشط')
                         ->default(true),
@@ -96,6 +114,15 @@ class UniversityResource extends Resource
                 Tables\Columns\TextColumn::make('order')
                     ->label('الترتيب')
                     ->sortable(),
+
+                Tables\Columns\TextColumn::make('type')
+                    ->label('النوع')
+                    ->badge()
+                    ->color(fn(string $state) => match($state) {
+                        'حكومية' => 'success',
+                        'أهلية'  => 'warning',
+                        'خاصة'   => 'primary',
+                    }),
             ])
             ->reorderable('order')
             ->defaultSort('order')

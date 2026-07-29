@@ -11,7 +11,7 @@
             <div class="swiper-wrapper pb-16">
                 @foreach($universities as $university)
                     <div class="swiper-slide">
-                        <a href="{{ route('properties.index', ['university' => $university->name]) }}"
+                        <a href="{{ route('universities.show', $university) }}"
                            class="block group">
                             <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl
                                 transition-all duration-300 hover:-translate-y-1">
