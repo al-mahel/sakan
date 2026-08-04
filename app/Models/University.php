@@ -11,12 +11,23 @@ class University extends Model
 {
     use HasFactory, HasSlug;
     protected $fillable = [
-        'name', 'slug', 'city', 'image',
-        'description', 'type', 'website',
-        'is_active', 'order',
+        'name',
+        'slug',
+        'city',
+        'address',
+        'website',
+        'type',
+        'latitude',
+        'longitude',
+        'image',
+        'description',
+        'is_active',
+        'order',
     ];
     protected $casts = [
         'is_active' => 'boolean',
+        'latitude' => 'float',
+        'longitude' => 'float',
     ];
 
     public function getSlugOptions(): SlugOptions
@@ -26,9 +37,12 @@ class University extends Model
             ->saveSlugsTo('slug');
     }
 
-    public function properties()
+    public function properties(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-        return $this->hasMany(Property::class, 'nearest_university', 'name');
+        return $this->belongsToMany(Property::class)
+            ->withPivot('distance')
+            ->withTimestamps()
+            ->orderByPivot('distance');
     }
 
     public function getRouteKeyName(): string

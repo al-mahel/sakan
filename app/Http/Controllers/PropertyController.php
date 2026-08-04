@@ -16,7 +16,7 @@ class PropertyController extends Controller
         ]);
 
         $properties = Property::active()
-            ->with(['images'])
+            ->with(['images', 'universities'])
             ->search($filters)
             ->latest()
             ->paginate(12)
@@ -24,7 +24,9 @@ class PropertyController extends Controller
 
         $types        = Property::active()->distinct()->pluck('type');
         $cities       = Property::active()->distinct()->pluck('city')->filter();
-        $universities = University::active()->pluck('name');
+        $universities = University::active()
+            ->orderBy('name')
+            ->get();
 
         return view('properties.index', compact(
             'properties', 'filters', 'types', 'cities', 'universities'
@@ -35,8 +37,11 @@ class PropertyController extends Controller
         abort_if(!$property->is_active, 404);
 
         $property->incrementViews();
-        $property->load(['rooms', 'images']);
-
+        $property->load([
+            'rooms',
+            'images',
+            'universities',
+        ]);
         // Related properties same city or type
         $related = Property::active()
             ->where('id', '!=', $property->id)

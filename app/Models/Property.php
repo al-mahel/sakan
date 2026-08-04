@@ -10,6 +10,9 @@ class Property extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $with = [
+         'universities',
+    ];
     protected $fillable = [
         'title',
         'slug',
@@ -22,7 +25,6 @@ class Property extends Model
         'district',
         'latitude',
         'longitude',
-        'nearest_university',
         'bathrooms',
         'main_image',
         'whatsapp',
@@ -135,12 +137,14 @@ class Property extends Model
                 fn($q, $v) => $q->where('city', $v))
             ->when($filters['district'] ?? null,
                 fn($q, $v) => $q->where('district', 'like', "%$v%"))
-            ->when($filters['university'] ?? null,
-                fn($q, $v) => $q->where('nearest_university', 'like', "%$v%"))
             ->when($filters['min_price'] ?? null,
                 fn($q, $v) => $q->where('price', '>=', $v))
             ->when($filters['max_price'] ?? null,
                 fn($q, $v) => $q->where('price', '<=', $v))
+            ->when($filters['university'] ?? null,
+                fn($q, $v) => $q->whereHas('universities', function ($query) use ($v) {
+                    $query->where('universities.id', $v);
+                }))
             ->when($filters['bathrooms'] ?? null,
                 fn($q, $v) => $q->where('bathrooms', '>=', $v))
             ->when($filters['keyword'] ?? null,
@@ -154,5 +158,18 @@ class Property extends Model
     public function incrementViews(): void
     {
         $this->increment('views');
+    }
+
+    public function universities(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(University::class)
+            ->withPivot('distance')
+            ->withTimestamps()
+            ->orderByPivot('distance');
+    }
+
+    public function getNearestUniversityAttribute(): ?University
+    {
+        return $this->universities->first();
     }
 }

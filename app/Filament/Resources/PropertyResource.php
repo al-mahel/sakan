@@ -92,12 +92,7 @@ class PropertyResource extends Resource
                             ->numeric()
                             ->prefix('ج.م'),
 
-                        Forms\Components\Select::make('nearest_university')
-                            ->label('أقرب جامعة')
-                            ->options(University::active()->pluck('name', 'name'))
-                            ->searchable()
-                            ->placeholder('اختر الجامعة')
-                            ->columnSpanFull(),
+
                     ]),
 
                     Forms\Components\Textarea::make('description')

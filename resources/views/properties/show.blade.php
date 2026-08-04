@@ -183,15 +183,35 @@
                             <div class="font-black text-navy text-xl">{{ $property->bathrooms }}</div>
                             <div class="text-xs text-gray-500">حمام</div>
                         </div>
-                        @if($property->nearest_university)
-                            <div class="text-center p-3 bg-gray-50 rounded-xl">
-                                <div class="text-2xl mb-1">🎓</div>
-                                <div class="font-bold text-navy text-sm leading-tight">
-                                    {{ $property->nearest_university }}
+                    </div>
+
+                    <div class="bg-white rounded-xl p-5 shadow">
+                        <h3 class="font-bold text-lg mb-4">
+                            🎓 الجامعات القريبة
+                        </h3>
+
+                        @foreach($property->universities as $university)
+                            <div class="flex items-center justify-between py-3 border-b last:border-0">
+
+                                <div>
+                                    <div class="font-semibold">
+                                        {{ $university->name }}
+                                    </div>
+
+                                    <div class="text-sm text-gray-500">
+                                        {{ $university->city }}
+                                    </div>
                                 </div>
-                                <div class="text-xs text-gray-500">أقرب جامعة</div>
+
+                                <span class="text-sm text-primary font-bold">
+                                    @if($university->pivot->distance >= 1000)
+                                        {{ number_format($university->pivot->distance / 1000,1) }} كم
+                                    @else
+                                        {{ number_format($university->pivot->distance) }} متر
+                                    @endif
+                                </span>
                             </div>
-                        @endif
+                        @endforeach
                     </div>
 
                 </div>

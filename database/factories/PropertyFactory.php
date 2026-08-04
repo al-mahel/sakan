@@ -3,7 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\Property;
-use App\Models\University;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PropertyFactory extends Factory
@@ -41,14 +40,17 @@ class PropertyFactory extends Factory
         'أرض اللواء', 'الحي الثامن', 'الحي العاشر',
     ];
 
-    private array $universities = [
-        'جامعة القاهرة', 'جامعة عين شمس', 'جامعة الأزهر',
-        'جامعة أسيوط', 'جامعة المنصورة', 'جامعة الإسكندرية',
-        'جامعة طنطا', 'جامعة سوهاج', 'جامعة المنيا', 'جامعة الفيوم',
-    ];
-
     private array $types = [
-        'شقة', 'غرفة', 'استوديو', 'فيلا', 'دوبلكس', 'وحدة سكنية',
+        'ستوديو',
+        'شقة',
+        'دوبلكس',
+        'بنتهاوس',
+        'فيلا',
+        'تاون هاوس',
+        'توين هاوس',
+        'شاليه',
+        'غرفة',
+        'سرير',
     ];
 
     private array $descriptions = [
@@ -99,27 +101,20 @@ class PropertyFactory extends Factory
         $title  = $this->faker->randomElement($this->arabicTitles);
         $price  = $this->faker->randomElement([500,700,800,1000,1200,1500,2000,2500,3000,3500,4000,5000]);
 
-        $universityNames  = University::pluck('name')->toArray();
-        if (empty($universityNames)) {
-            $universityNames = $this->universities;
-        }
-
-        $cityUniversities  = University::where('city', $city)->pluck('name')->toArray();
-        $nearestUniversity = !empty($cityUniversities)
-            ? $this->faker->randomElement($cityUniversities)
-            : $this->faker->randomElement($universityNames);
-
         return [
             'title'              => $title,
             'slug'               => $this->generateUniqueSlug($title),
             'description'        => $this->faker->randomElement($this->descriptions),
             'type'               => $type,
             'price'              => $price,
-            'price_period'       => $this->faker->randomElement(['شهري', 'سنوي']),
+            'price_period' => $this->faker->randomElement([
+                'يومي',
+                'شهري',
+                'سنوي',
+            ]),
             'city'               => $city,
             'district'           => $this->faker->randomElement($this->districts),
             'address'            => $this->faker->randomElement($this->districts) . '، ' . $city . '، مصر',
-            'nearest_university' => $nearestUniversity,
             'bathrooms'          => $this->faker->numberBetween(1, 3),
             'main_image'         => null,
             'whatsapp'           => '201' . $this->faker->numerify('#########'),

@@ -24,7 +24,8 @@ class UniversityController extends Controller
         $university->load(['comments.user', 'comments.replies.user']);
         $relatedProperties = $university->properties()
             ->active()
-            ->latest()
+            ->with(['images'])
+            ->orderByPivot('distance')
             ->take(6)
             ->get();
 

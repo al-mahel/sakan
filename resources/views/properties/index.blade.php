@@ -89,10 +89,12 @@
                             <label class="block text-sm font-bold text-gray-700 mb-1">أقرب جامعة</label>
                             <select name="university" class="search-input">
                                 <option value="">الكل</option>
-                                @foreach($universities as $uni)
-                                    <option value="{{ $uni }}"
-                                        {{ ($filters['university'] ?? '') === $uni ? 'selected' : '' }}>
-                                        {{ $uni }}
+                                @foreach($universities as $university)
+                                    <option
+                                        value="{{ $university->id }}"
+                                        @selected(($filters['university'] ?? '') === $university->id)
+                                    >
+                                        {{ $university->name }}
                                     </option>
                                 @endforeach
                             </select>

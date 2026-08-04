@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\PropertyResource\Pages;
 
 use App\Filament\Resources\PropertyResource;
+use App\Services\UniversityDistanceService;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 
@@ -20,5 +21,11 @@ class EditProperty extends EditRecord
     protected function getRedirectUrl(): string
     {
         return self::getResource()::getUrl('index');
+    }
+
+    protected function afterSave(): void
+    {
+        resolve(UniversityDistanceService::class)
+            ->sync($this->record);
     }
 }
