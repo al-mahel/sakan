@@ -5,8 +5,7 @@
 
             {{-- Logo --}}
             <a href="{{ route('home') }}" class="flex items-center gap-2">
-                <span class="text-2xl font-black text-white tracking-wide">سكن</span>
-                <span class="text-navy-200 text-sm font-medium">| طلاب</span>
+                <img src="{{ asset('images/Skntalaba -02.png') }}" alt="سكن طلاب" class="h-30 w-auto">
             </a>
 
             {{-- Nav Links --}}
