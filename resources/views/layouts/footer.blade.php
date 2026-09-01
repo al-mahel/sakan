@@ -11,6 +11,8 @@
 
             {{-- Sakan --}}
             <div>
+                <img src="{{ asset('images/Skntalaba -02.png') }}" alt="سكن طلاب" class="h-30 w-auto mb-4">
+                <p class="text-navy-200 text-sm leading-relaxed">
                 <h3 class="text-2xl font-black mb-3 text-white">
                     سكن
                 </h3>
