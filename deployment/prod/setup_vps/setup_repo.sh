@@ -57,7 +57,7 @@ sudo -u "$TARGET_USER" bash << EOF
 
 
     # STEP -> Install FE dependencies
-    export NVM_DIR="/root/.nvm"
+    export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
     nvm install v20
