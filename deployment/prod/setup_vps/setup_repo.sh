@@ -60,10 +60,10 @@ sudo -u "$TARGET_USER" bash << EOF
     export NVM_DIR="/root/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
-    sudo nvm install v20
-    sudo nvm use v20
-    sudo npm install
-    sudo npm run build
+    nvm install v20
+    nvm use v20
+    npm install
+    npm run build
 
 
     # STEP -> Install PHP dependencies
