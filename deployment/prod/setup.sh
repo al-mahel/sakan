@@ -17,7 +17,7 @@ fi
 
 
 # GITHUB_API_KEY=""  =>  ALREADY DEFINED IN ENV
-SCRIPTS_BASE_URL="https://$GITHUB_API_KEY@github.com/al-mahel/sakan/blob/master/deployment/prod/setup_vps"
+SCRIPTS_BASE_URL="https://api.github.com/repos/al-mahel/sakan/contents/deployment/prod/setup_vps"
 SCRIPT_DIR="/opt/sakan"
 mkdir -p "$SCRIPT_DIR"
 
@@ -31,13 +31,17 @@ run_step() {
     echo "#########################################"
 
     echo "Downloading $script_name..."
-    curl -fsSL -o "$SCRIPT_DIR/$script_name" "$SCRIPTS_BASE_URL/$script_name"
+    curl -fsSL \
+        -H "Authorization: Bearer $GITHUB_API_KEY" \
+        -H "Accept: application/vnd.github.raw" \
+        -o "$SCRIPT_DIR/$script_name" "$SCRIPTS_BASE_URL/$script_name?ref=master"
 
     if [ ! -f "$SCRIPT_DIR/$script_name" ]; then
         echo "❌ Script not found: $SCRIPT_DIR/$script_name"
         exit 1
     fi
 
+    chmod +x "$SCRIPT_DIR/$script_name"
     sudo bash "$SCRIPT_DIR/$script_name"
 
     if [ $? -eq 0 ]; then

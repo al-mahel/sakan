@@ -57,10 +57,13 @@ sudo -u "$TARGET_USER" bash << EOF
 
 
     # STEP -> Install FE dependencies
-    nvm install v20
-    nvm use v20
-    npm install
-    npm run build
+    export NVM_DIR="root/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+    sudo nvm install v20
+    sudo nvm use v20
+    sudo npm install
+    sudo npm run build
 
 
     # STEP -> Install PHP dependencies
@@ -97,8 +100,8 @@ sudo -u "$TARGET_USER" bash << EOF
 
     echo ""
     echo "Setting permissions..."
-    chown -R "prod":"www-data" "$APP_DIR"
-    chmod -R 775 "$APP_DIR/storage" "$APP_DIR/bootstrap/cache"
+    sudo chown -R "prod":"www-data" "$APP_DIR"
+    sudo chmod -R 775 "$APP_DIR/storage" "$APP_DIR/bootstrap/cache"
     echo "✅ Permissions set"
 EOF
 
