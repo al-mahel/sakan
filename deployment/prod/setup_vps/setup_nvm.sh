@@ -18,6 +18,7 @@ if ! is_installed curl; then
 fi
 
 
+sudo -u "prod" -H bash << 'EOF'
 
 # STEP -> Install NVM if not already installed
 if [ -d "$HOME/.nvm" ]; then
@@ -53,6 +54,7 @@ else
     exit 1
 fi
 
+EOF
 
 
 echo ""
