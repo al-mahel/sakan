@@ -9,8 +9,6 @@ echo "========================================="
 echo "NVM Setup"
 echo "========================================="
 
-NVM_VERSION="v0.40.1"
-
 # Step 1 -> Install curl if not present
 if ! is_installed curl; then
     apt update
@@ -19,6 +17,8 @@ fi
 
 
 sudo -u "prod" -H bash << 'EOF'
+
+NVM_VERSION="v0.40.1"
 
 # STEP -> Install NVM if not already installed
 if [ -d "$HOME/.nvm" ]; then
