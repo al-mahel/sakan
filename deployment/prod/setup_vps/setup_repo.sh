@@ -71,20 +71,20 @@ sudo -u "$TARGET_USER" bash << EOF
 
 
     echo "Generate Key..."
-    sudo php artisan key:generate
+    sudo php artisan key:generate --force
 
     echo "Migrate..."
-    sudo php artisan migrate
+    sudo php artisan migrate --force
 
     echo "Link Storage..."
-    sudo php artisan storage:link
+    sudo php artisan storage:link --force
 
 
     echo ""
     echo "Caching config/routes/views..."
-    sudo php artisan config:cache
-    sudo php artisan route:cache
-    sudo php artisan view:cache
+    sudo php artisan config:cache --force
+    sudo php artisan route:cache --force
+    sudo php artisan view:cache --force
     echo "✅ Caches built"
 
 
