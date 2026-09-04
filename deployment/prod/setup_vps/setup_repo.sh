@@ -54,14 +54,14 @@ sudo -u "$TARGET_USER" bash << EOF
     sudo git clone $REPO_URL backend
     cd backend
     sudo cp /root/.env $TARGET_HOME/app/backend/.env
-    git checkout releases
-    git pull
+    sudo git checkout releases
+    sudo git pull
     echo "Repository setup complete for user '$TARGET_USER' at $TARGET_HOME/app/backend"
 
     # STEP -> Install PHP dependencies
     echo ""
     echo "Installing Composer dependencies..."
-    composer install --no-dev --optimize-autoloader --no-interaction
+    sudo composer install --no-dev --optimize-autoloader --no-interaction
     if [ $? -eq 0 ]; then
         echo "✅ Composer dependencies installed"
     else
@@ -71,23 +71,21 @@ sudo -u "$TARGET_USER" bash << EOF
 
 
     echo "Generate Key..."
-    php artisan key:generate
+    sudo php artisan key:generate
 
     echo "Migrate..."
-    php artisan migrate
+    sudo php artisan migrate
 
     echo "Link Storage..."
-    php artisan storage:link
-
+    sudo php artisan storage:link
 
 
     echo ""
     echo "Caching config/routes/views..."
-    php artisan config:cache
-    php artisan route:cache
-    php artisan view:cache
+    sudo php artisan config:cache
+    sudo php artisan route:cache
+    sudo php artisan view:cache
     echo "✅ Caches built"
-
 
 
     echo ""
