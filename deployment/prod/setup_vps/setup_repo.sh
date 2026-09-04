@@ -52,19 +52,11 @@ sudo -u "$TARGET_USER" bash << EOF
     mkdir -p "app"
     cd "app"
     sudo git clone $REPO_URL backend
+    cd backend
     sudo cp /root/.env $TARGET_HOME/app/backend/.env
+    git checkout releases
+    git pull
     echo "Repository setup complete for user '$TARGET_USER' at $TARGET_HOME/app/backend"
-
-
-    # STEP -> Install FE dependencies
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-    nvm install v20
-    nvm use v20
-    npm install
-    npm run build
-
 
     # STEP -> Install PHP dependencies
     echo ""

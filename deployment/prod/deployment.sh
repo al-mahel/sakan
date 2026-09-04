@@ -4,7 +4,7 @@ set -e  # Exit immediately if any command fails
 
 cd /home/prod/app/backend
 
-git checkout master
+git checkout releases
 git pull
 
 # Load environment variables
@@ -14,12 +14,6 @@ if [ -f .env ]; then
     set +a
     echo "✅ Environment variables loaded successfully"
 fi
-
-
-# Build FE
-nvm use v20
-npm install
-npm run build
 
 
 # Build PHP Dependencies

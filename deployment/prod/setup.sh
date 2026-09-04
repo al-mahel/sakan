@@ -34,7 +34,7 @@ run_step() {
     curl -fsSL \
         -H "Authorization: Bearer $GITHUB_API_KEY" \
         -H "Accept: application/vnd.github.raw" \
-        -o "$SCRIPT_DIR/$script_name" "$SCRIPTS_BASE_URL/$script_name?ref=master"
+        -o "$SCRIPT_DIR/$script_name" "$SCRIPTS_BASE_URL/$script_name?ref=releases"
 
     if [ ! -f "$SCRIPT_DIR/$script_name" ]; then
         echo "❌ Script not found: $SCRIPT_DIR/$script_name"
@@ -53,9 +53,9 @@ run_step() {
 }
 
 run_step "Upgrade VPS" "upgrade_vps.sh"
+run_step "Setup User" "setup_user.sh"
 run_step "MySQL Setup" "setup_mysql.sh"
 run_step "Setup Firewall" "setup_firewall.sh"
-run_step "Setup User" "setup_user.sh"
 run_step "Setup NVM" "setup_nvm.sh"
 run_step "Setup PHP" "setup_php.sh"
 run_step "Configure Journald" "setup_journald.sh"
