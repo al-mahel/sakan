@@ -21,9 +21,9 @@ composer install --no-dev --optimize-autoloader --no-interaction
 
 
 # Build Laravel
-php artisan key:generate
-php artisan migrate
-php artisan storage:link
+php artisan key:generate --force
+php artisan migrate --force
+php artisan storage:link --force
 
 
 # Build Caching
