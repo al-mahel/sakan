@@ -9,9 +9,9 @@ echo "========================================="
 echo "PHP Setup"
 echo "========================================="
 
-PHP_VERSION="8.2"
+PHP_VERSION="8.3"
 
-# STEP -> Add ondrej/php PPA (needed for PHP 8.2+ on most Ubuntu releases)
+# STEP -> Add ondrej/php PPA (needed for PHP 8.3+ on most Ubuntu releases)
 if ! is_installed software-properties-common; then
     apt update
     apt install -y software-properties-common
@@ -40,7 +40,9 @@ if ! is_installed php$PHP_VERSION; then
         php$PHP_VERSION-bcmath \
         php$PHP_VERSION-mbstring \
         php$PHP_VERSION-mysql \
-        php$PHP_VERSION-xml
+        php$PHP_VERSION-xml \
+        php$PHP_VERSION-intl \
+        php$PHP_VERSION-zip
 
     if [ $? -eq 0 ]; then
         echo "✅ PHP $PHP_VERSION installed successfully"
