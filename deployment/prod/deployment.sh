@@ -32,7 +32,7 @@ php artisan route:cache
 php artisan view:cache
 
 
-curl -f http://127.0.0.1/up
+curl -sf https://www.skntalaba.com/up -o /dev/null
 
 echo ""
 echo "Configure Running Crons..."
