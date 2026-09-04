@@ -47,7 +47,6 @@ TARGET_HOME="/home/prod"
 # Ask for nginx config file location
 REPO_PATH="$TARGET_HOME/app/backend"
 NGINX_SOURCE_FILE="nginx-sakan.com.conf"
-NGINX_SOURCE_FILE_PATH="$REPO_PATH/deployment/prod/$NGINX_SOURCE_FILE"
 
 # Remove default files
 echo "Removing default nginx configurations..."
@@ -58,8 +57,8 @@ echo "✅ Default configs removed"
 
 # Move your config file
 echo "Installing your nginx configuration..."
-cp $REPO_PATH/deployment/prod/nginx.conf /etc/nginx/nginx.conf
-cp $REPO_PATH/deployment/prod/$NGINX_SOURCE_FILE /etc/nginx/sites-available/$NGINX_SOURCE_FILE
+cp $REPO_PATH/deployment/prod/nginx/nginx.conf /etc/nginx/nginx.conf
+cp $REPO_PATH/deployment/prod/nginx/$NGINX_SOURCE_FILE /etc/nginx/sites-available/$NGINX_SOURCE_FILE
 ln -sf /etc/nginx/sites-available/$NGINX_SOURCE_FILE /etc/nginx/sites-enabled/$NGINX_SOURCE_FILE
 
 # Test and reload

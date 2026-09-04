@@ -82,9 +82,9 @@ sudo -u "$TARGET_USER" bash << EOF
 
     echo ""
     echo "Caching config/routes/views..."
-    sudo php artisan config:cache --force
-    sudo php artisan route:cache --force
-    sudo php artisan view:cache --force
+    sudo php artisan config:cache
+    sudo php artisan route:cache
+    sudo php artisan view:cache
     echo "✅ Caches built"
 
 
