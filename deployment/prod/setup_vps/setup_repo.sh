@@ -92,6 +92,8 @@ sudo -u "$TARGET_USER" bash << EOF
     echo "Setting permissions..."
     sudo chown -R "prod":"www-data" "$APP_DIR"
     sudo chmod -R 775 "$APP_DIR/storage" "$APP_DIR/bootstrap/cache"
+    sudo chmod o+x /home/prod
+    sudo chmod o+x /home/prod/app
     echo "✅ Permissions set"
 EOF
 
